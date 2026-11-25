@@ -129,6 +129,7 @@ Integration tests in `tests/test_integration.py` use `FastMCP.Client` with `Stre
 | `PLANE_API_KEY` | stdio | API key for authentication |
 | `PLANE_WORKSPACE_SLUG` | stdio | Target workspace |
 | `PLANE_BASE_URL` | all (default: https://api.plane.so) | Plane API URL |
+| `PLANE_EDITION` | all (optional, fork default: community) | `community` hides estimate, work item type/property and customer tools (404 on Plane Community); `full` keeps them |
 | `PLANE_INTERNAL_BASE_URL` | http/sse (optional) | Internal URL for server-to-server calls |
 | `REDIS_URL` | http/sse (optional) | Token storage as one connection URL (`redis://`/`rediss://`); wins over host/port |
 | `REDIS_HOST` / `REDIS_PORT` | http/sse (optional) | Token storage (falls back to in-memory) |

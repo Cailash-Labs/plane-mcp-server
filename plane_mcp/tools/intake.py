@@ -35,9 +35,10 @@ ACTIONS = (
 )
 
 FOOTER = (
-    "workitem_id is the `issue` field of an intake record, not the record's own id. "
+    "workitem_id is the `issue` field of an intake record, not its own id. "
     "status: -2 pending, -1 declined, 0 snoozed (needs snoozed_till), 1 accepted, "
     "2 duplicate (needs duplicate_to). "
+    "Triage needs project Admin. "
     f"priority is one of: {', '.join(PRIORITIES)}."
 )
 
@@ -128,14 +129,9 @@ def register(mcp: FastMCP) -> None:
                 source=opt(source),
                 source_email=opt(source_email),
             )
-            # Triage fields go through the status endpoint; source metadata alone does not.
-            if status is not None or snoozed_till or duplicate_to:
-                return client.intake.update_status(
-                    workspace_slug=workspace_slug,
-                    project_id=project_id,
-                    work_item_id=workitem_id,
-                    data=data,
-                )
+            # Cailash fork: triage goes through the classic PATCH on the intake record.
+            # Plane Community has no `/intake-issues/{id}/status` route (404), and the
+            # classic route accepts status, snoozed_till and duplicate_to directly.
             return client.intake.update(
                 workspace_slug=workspace_slug,
                 project_id=project_id,
