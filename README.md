@@ -1,5 +1,10 @@
 # Plane MCP Server
 
+> **Cailash fork.** This is [Cailash-Labs/plane-mcp-server](https://github.com/Cailash-Labs/plane-mcp-server),
+> a fork of [makeplane/plane-mcp-server](https://github.com/makeplane/plane-mcp-server) tuned for
+> self-hosted **Plane Community**. What differs, and how to sync with upstream, is in
+> [CHANGELOG.md](CHANGELOG.md#cailash-fork).
+
 A [Model Context Protocol](https://modelcontextprotocol.io) server for
 [Plane](https://plane.so). Gives an AI agent tools to read and manage projects,
 work items, cycles, modules, releases, customers and more.
@@ -145,6 +150,7 @@ unchanged.
 | `PLANE_API_KEY` | stdio | API key |
 | `PLANE_WORKSPACE_SLUG` | stdio | Target workspace |
 | `PLANE_BASE_URL` | optional | Plane API URL (default `https://api.plane.so`) |
+| `PLANE_EDITION` | optional | `community` (fork default) hides tools Plane Community has no API for; `full` advertises all |
 
 The remote transports carry credentials in the connection — the OAuth flow or the
 PAT headers — and need none of these.

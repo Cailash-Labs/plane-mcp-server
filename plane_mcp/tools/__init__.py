@@ -16,9 +16,12 @@ def register_tools(mcp: FastMCP, *, legacy_names: bool = True) -> int:
     # Imported here, not at module scope: `registry` imports the resource modules
     # out of this package, so a top-level import would run while this module is
     # still initialising.
+    from plane_mcp.tools.editions import edition, hidden_tools
     from plane_mcp.tools.registry import RESOURCES, alias_table
 
-    for mod in RESOURCES:
+    hidden = hidden_tools()
+    advertised = [mod for mod in RESOURCES if mod.NAME not in hidden]
+    for mod in advertised:
         mod.register(mcp)
 
     mcp.add_transform(StripOutputSchemas())
@@ -27,5 +30,5 @@ def register_tools(mcp: FastMCP, *, legacy_names: bool = True) -> int:
 
     # Several clients cap how many tools they load and drop the rest silently.
     # One number in the log lets an operator compare against their client's limit.
-    logger.info("Plane MCP: advertising %d tools", len(RESOURCES))
-    return len(RESOURCES)
+    logger.info("Plane MCP: advertising %d tools (edition: %s)", len(advertised), edition())
+    return len(advertised)
